@@ -5,8 +5,25 @@ _call()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
     opts="--query --file --columns"
-    COMPREPLY=( $(compgen -W "$(contacts --file ~/_archive/contact.csv ${cur} -c 'Last Name','First Name')" -- ${cur}) )
+    echo "${cur}" >> /tmp/result.log
+
+    case "${prev}" in
+	call)    
+            COMPREPLY=$(contacts --file ~/_archive/contact.csv ${cur} -c 'Last Name','First Name')
+
+	    COMPREPLY=${COMPREPLY// /_} 
+	    echo $COMPREPLY>> /tmp/results.log
+            COMPREPLY=$(compgen -W "$COMPREPLY" -- ${cur})
+	    COMPREPLY=$(echo $COMPREPLY | sed "s/_/ /g")
+	    COMPREPLY=( $COMPREPLY )
 
 
+            return 0
+            ;;
+	*)
+            COMPREPLY=$(contacts --file ~/_archive/contact.csv ${prev} ${cur} -c 'First Name')
+            COMPREPLY=( $(compgen -W "$COMPREPLY" -- ${cur}) )	
+	    ;;	
+    esac
 }
-complete -F _call call
+complete -o nospace -F _call call

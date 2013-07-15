@@ -60,7 +60,7 @@ def main():
 			tmp.append(print_contacts(result,column))
 		resultstr.append(" ".join(tmp))
 			
-	print "\n ".join(resultstr)
+	print "\n".join(resultstr)
 if __name__ == '__main__':
 	main()
 
