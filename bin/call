@@ -1,0 +1,5 @@
+#!/bin/bash
+num=$(contacts $1 $2 -c 'Business Phone' -f /home/amin/_archive/contact.csv)
+/usr/bin/ekiga -c $num@pbx.tosanltd.com
+
+

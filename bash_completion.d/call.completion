@@ -1,0 +1,12 @@
+_call() 
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="--query --file --columns"
+    COMPREPLY=( $(compgen -W "$(contacts --file ~/_archive/contact.csv ${cur} -c 'Last Name','First Name')" -- ${cur}) )
+
+
+}
+complete -F _call call
