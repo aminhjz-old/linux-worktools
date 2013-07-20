@@ -1,0 +1,3 @@
+#!/bin/bash
+contacts --file ~/_archive/contact.csv $1 -c "Business Phone","E-mail Display Name"
+#todo create autocompletation script for this
